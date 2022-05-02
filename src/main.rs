@@ -16,14 +16,17 @@ fn main() {
     let clusters = kmeans::get_clusters(8, &charges, 15);
 
     // Get average disance between clusters
-    let means = clusters.iter().map(|cluster| {
-        // Convert cluster to its mean
-        cluster.iter().sum::<f32>() / cluster.len() as f32
-    });
+    let means: Vec<f64> = clusters
+        .iter()
+        .map(|cluster| {
+            // Convert cluster to its mean
+            cluster.iter().sum::<f64>() / cluster.len() as f64
+        })
+        .collect();
     let mut sum = 0.0;
-    let len = means.len() as f32;
-    for window in means.collect::<Vec<f32>>().windows(2) {
-        let diff = f32::abs(window[1] - window[0]);
+    let len = means.len() as f64;
+    for window in means.windows(2) {
+        let diff = f64::abs(window[1] - window[0]);
         sum += diff;
     }
     println!("Charge on an electron: {:+e}", sum / len);
@@ -33,7 +36,7 @@ fn main() {
         .map(|cluster| {
             cluster
                 .into_iter()
-                .map(|x| (x as f64, 1.0f64))
+                .map(|x| (x, 1.0))
                 .collect::<Vec<(f64, f64)>>()
         })
         .collect::<Vec<Vec<(f64, f64)>>>();
