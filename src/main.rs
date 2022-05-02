@@ -12,7 +12,7 @@ fn main() {
         println!("k = {}, error = {}", k, error * 1E36);
     }
 
-    // 6 seems to be optimal
+    // 8 seems to be optimal
     let clusters = kmeans::get_clusters(8, &charges, 15);
 
     // Get average disance between clusters
@@ -26,7 +26,7 @@ fn main() {
         let diff = f32::abs(window[1] - window[0]);
         sum += diff;
     }
-    println!("Av diff: {:+e}", sum / len);
+    println!("Charge on an electron: {:+e}", sum / len);
 
     let clusters = clusters
         .into_iter()
