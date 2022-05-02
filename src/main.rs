@@ -24,7 +24,7 @@ fn main() {
         })
         .collect();
     let mut sum = 0.0;
-    let len = means.len() as f64;
+    let len = means.len() as f64 - 1.0;
     for window in means.windows(2) {
         let diff = f64::abs(window[1] - window[0]);
         sum += diff;
